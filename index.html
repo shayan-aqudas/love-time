@@ -41,7 +41,7 @@ body{
 
 /* LOCK */
 #lock{
-    display:none;
+    display:flex;
     flex-direction:column;
     gap:18px;
     background:rgba(255,255,255,.14);
@@ -50,8 +50,10 @@ body{
     border-radius:26px;
     box-shadow:0 40px 80px rgba(0,0,0,.45);
     text-align:center;
+    justify-content:center;
+    align-items:center;
 }
-.input-box{position:relative;}
+.input-box{position:relative; width:100%;}
 .input-box input{
     width:100%;
     padding:14px 42px 14px 16px;
@@ -68,7 +70,7 @@ body{
     cursor:pointer;
 }
 
-/* PREMIUM BUTTON (COMMON) */
+/* PREMIUM BUTTON */
 .btn{
     padding:14px;
     border:none;
@@ -93,7 +95,7 @@ body{
 
 /* APP */
 #app{
-    display:none;
+    display:none; /* Hide by default */
     width:100%;
     display:flex;
     justify-content:center;
@@ -262,8 +264,8 @@ function togglePass(){
 }
 function checkPass(){
     if(pass.value==="love123"){
-        lock.style.display="none";
-        app.style.display="flex";
+        lock.style.display="none"; // hide password
+        app.style.display="flex";   // show card
     }else alert("Wrong Password 💔");
 }
 
