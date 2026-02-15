@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Time 💖</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Glass Card */
+.card {
+    width: 90%;
+    max-width: 380px;
+    padding: 25px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+/* Timer */
+.timer {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ff2f92;
+    margin-bottom: 15px;
+}
+
+/* Love Text */
+.love-text {
+    font-size: 15px;
+    color: #b3005e;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Button */
+button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff2f92, #ff7eb3);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255,47,146,0.5);
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Floating Text */
+.floating-text {
+    position: absolute;
+    font-size: 16px;
+    color: pink;
+    opacity: 0.7;
+    animation: fade 4s linear forwards;
+}
+
+@keyframes fade {
+    0% { opacity: 0; }
+    20% { opacity: 0.7; }
+    80% { opacity: 0.7; }
+    100% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <div class="timer" id="timer">Loading...</div>
+
+    <div class="love-text">
+        From the moment our hearts met on <b>09 October 2025</b>,  
+        every second with you became a beautiful memory.  
+        This time is not just numbers, it’s our love growing forever 💕
+    </div>
+
+    <button onclick="startLove()">Play Our Love 🎶</button>
+</div>
+
+<!-- Music (replace src with your own) -->
+<audio id="music" loop>
+    <source src="YOUR_MUSIC_LINK_HERE.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const startDate = new Date("2025-10-09T00:00:00");
+
+function updateTimer() {
+    const now = new Date();
+    let diff = now - startDate;
+
+    let seconds = Math.floor(diff / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
+    let months = Math.floor(days / 30);
+
+    days %= 30;
+    hours %= 24;
+    minutes %= 60;
+    seconds %= 60;
+
+    document.getElementById("timer").innerHTML =
+        `${months} Months • ${days} Days<br>
+         ${hours} Hours • ${minutes} Minutes • ${seconds} Seconds`;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+let textInterval;
+let removeInterval;
+
+function startLove() {
+    document.getElementById("music").play();
+
+    clearInterval(textInterval);
+    clearInterval(removeInterval);
+
+    textInterval = setInterval(createText, 500);
+
+    setTimeout(() => {
+        clearInterval(textInterval);
+        removeInterval = setInterval(removeText, 300);
+    }, 20000);
+}
+
+function createText() {
+    const texts = ["I LOVE YOU SANNU..", "YOUR LOVE AKKU.."];
+    const div = document.createElement("div");
+    div.className = "floating-text";
+    div.innerText = texts[Math.floor(Math.random() * texts.length)];
+    div.style.left = Math.random() * 90 + "%";
+    div.style.top = Math.random() * 90 + "%";
+    document.body.appendChild(div);
+
+    setTimeout(() => div.remove(), 4000);
+}
+
+function removeText() {
+    const texts = document.querySelectorAll(".floating-text");
+    if (texts.length === 0) clearInterval(removeInterval);
+    texts.forEach(t => t.remove());
+}
+</script>
+
+</body>
+</html>
