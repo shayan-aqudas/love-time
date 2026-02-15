@@ -57,16 +57,28 @@ pointer-events:none;
 }
 
 /* INPUT */
-.input-box{position:relative;width:100%;}
+.input-box{
+position:relative;
+width:100%;
+}
 .input-box input{
 width:100%;
-padding:14px 42px 14px 16px;
+padding:14px 45px 14px 16px;
 border:none;
 outline:none;
 border-radius:16px;
+font-size:15px;
+}
+.input-box span{
+position:absolute;
+right:14px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+font-size:18px;
 }
 
-/* PREMIUM BUTTON */
+/* BUTTON */
 .btn{
 width:100%;
 padding:18px;
@@ -77,16 +89,12 @@ font-weight:600;
 cursor:pointer;
 color:white;
 background:linear-gradient(135deg,#7b2ff7,#2575fc);
-box-shadow:
-0 20px 45px rgba(101,82,255,.5),
-inset 0 -4px 12px rgba(0,0,0,.25);
+box-shadow:0 20px 45px rgba(101,82,255,.5);
 transition:.35s;
-letter-spacing:.5px;
 }
 
 .btn:hover{
 transform:translateY(-3px) scale(1.02);
-box-shadow:0 25px 55px rgba(101,82,255,.7);
 }
 
 /* APP */
@@ -113,6 +121,8 @@ background:linear-gradient(145deg,rgba(255,255,255,.35),rgba(255,255,255,.08));
 backdrop-filter:blur(28px);
 box-shadow:0 50px 100px rgba(0,0,0,.45);
 text-align:center;
+position:relative;
+z-index:5;
 }
 
 /* TIMER */
@@ -130,7 +140,12 @@ font-size:26px;
 font-weight:700;
 }
 
-/* FLOAT TEXT RANDOM */
+/* AUDIO BUTTON */
+#musicBtn{
+margin-top:18px;
+}
+
+/* FLOAT TEXT */
 .floating-text{
 position:absolute;
 background:rgba(255,255,255,.12);
@@ -140,6 +155,7 @@ border-radius:18px;
 font-size:14px;
 white-space:nowrap;
 pointer-events:none;
+z-index:1;
 
 animation:
 fadeIn 1.2s ease forwards,
@@ -148,27 +164,14 @@ fadeOut 1.2s ease forwards 6s;
 }
 
 @keyframes fadeIn{
-from{opacity:0;transform:translateY(20px) scale(.9);}
-to{opacity:1;transform:translateY(0) scale(1);}
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
-
 @keyframes floatMove{
 to{transform:translateY(-40px);}
 }
-
 @keyframes fadeOut{
 to{opacity:0;}
-}
-
-/* HEART */
-.heart{
-position:absolute;
-bottom:-30px;
-animation:floatUp 6s linear forwards;
-}
-@keyframes floatUp{
-from{transform:translateY(0);opacity:0}
-to{transform:translateY(-110vh);opacity:1}
 }
 </style>
 </head>
@@ -179,9 +182,12 @@ to{transform:translateY(-110vh);opacity:1}
 
 <div id="lock">
 <h3>Enter Password 💕</h3>
+
 <div class="input-box">
 <input type="password" id="pass">
+<span onclick="togglePass()">👁</span>
 </div>
+
 <button class="btn" onclick="checkPass()">Unlock</button>
 </div>
 
@@ -204,7 +210,7 @@ Every moment with you feels magical.<br>
 This time is counting our forever ❤️
 </p>
 
-<button id="musicBtn" class="btn" onclick="toggleMusic()">▶ Play Music</button>
+<button id="musicBtn" class="btn" onclick="toggleMusic()">▶ Play Our Love</button>
 <audio id="music" src="https://shayan-aqudas.github.io/music/best.mp3"></audio>
 
 </div>
@@ -217,6 +223,11 @@ setTimeout(()=>{
 splash.style.opacity="0";
 setTimeout(()=>splash.style.display="none",600);
 },2000);
+
+/* SHOW PASSWORD */
+function togglePass(){
+pass.type = pass.type==="password" ? "text" : "password";
+}
 
 /* PASSWORD */
 function checkPass(){
@@ -240,13 +251,18 @@ let hr=Math.floor(totalMin/60)%24;
 let day=Math.floor(totalMin/60/24)%30;
 let mon=Math.floor(totalMin/60/24/30);
 
+mon.innerText=mon;
+day.innerText=day;
+hr.innerText=hr;
+min.innerText=min;
+
 document.getElementById("mon").innerText=mon;
 document.getElementById("day").innerText=day;
 document.getElementById("hr").innerText=hr;
 document.getElementById("min").innerText=min;
 },1000);
 
-/* MUSIC + RANDOM TEXT SYSTEM */
+/* MUSIC + SAFE FLOAT TEXT */
 let playing=false;
 let textInterval;
 let activeTexts=[];
@@ -255,7 +271,7 @@ const MAX_TEXTS=20;
 function toggleMusic(){
 playing=!playing;
 
-musicBtn.innerText=playing?"⏸ Pause Music":"▶ Play Music";
+musicBtn.innerText=playing?"⏸ Pause Our Love":"▶ Play Our Love";
 playing?music.play():music.pause();
 
 if(playing) startFloatingText();
@@ -265,10 +281,10 @@ else clearInterval(textInterval);
 function startFloatingText(){
 
 const messages=[
-"I LOVE YOU SANNU ❤️",
-"YOUR LOVE AKKU 💖",
-"FOREVER TOGETHER ✨",
-"YOU ARE MY WORLD 🌙"
+"I LOVE YOU ❤️",
+"FOREVER WITH YOU ✨",
+"YOU ARE MY WORLD 💖",
+"OUR LOVE NEVER ENDS 🌙"
 ];
 
 textInterval=setInterval(()=>{
@@ -277,13 +293,19 @@ let t=document.createElement("div");
 t.className="floating-text";
 t.innerText=messages[Math.floor(Math.random()*messages.length)];
 
-t.style.left=Math.random()*90+"vw";
-t.style.top=Math.random()*85+"vh";
+/* SAFE POSITION (inside screen & below card) */
+let safeTop = window.innerHeight * 0.45 +
+Math.random() * (window.innerHeight * 0.45);
+
+let safeLeft = Math.random() * (window.innerWidth - 140);
+
+t.style.left = safeLeft+"px";
+t.style.top = safeTop+"px";
 
 document.body.appendChild(t);
 activeTexts.push(t);
 
-/* keep only 20 texts */
+/* keep max 20 */
 if(activeTexts.length>MAX_TEXTS){
 let old=activeTexts.shift();
 old.style.animation="fadeOut 1.5s forwards";
@@ -298,19 +320,6 @@ activeTexts=activeTexts.filter(el=>el!==t);
 
 },900);
 }
-
-/* HEARTS */
-const colors=["#ff6ec7","#ff9a9e","#fbc2eb","#fad0c4"];
-setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="❤";
-h.style.left=Math.random()*90+"%";
-h.style.fontSize=(Math.random()*10+18)+"px";
-h.style.color=colors[Math.floor(Math.random()*colors.length)];
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),6000);
-},1200);
 
 </script>
 </body>
