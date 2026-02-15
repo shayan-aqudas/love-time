@@ -6,12 +6,11 @@
 <title>Our Love 💖</title>
 
 <style>
-/* ===== RESET ===== */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family:'Poppins',sans-serif;
 }
 
 body{
@@ -21,10 +20,10 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    color:#fff;
+    color:white;
 }
 
-/* ===== SPLASH SCREEN ===== */
+/* ===== SPLASH ===== */
 #splash{
     position:fixed;
     inset:0;
@@ -34,42 +33,33 @@ body{
     align-items:center;
     z-index:9999;
 }
-
 #splash h1{
-    font-size:26px;
     animation:pulse 1.5s infinite;
 }
-
 @keyframes pulse{
-    0%{opacity:0.3;}
-    50%{opacity:1;}
-    100%{opacity:0.3;}
+    0%,100%{opacity:.3}
+    50%{opacity:1}
 }
 
-/* ===== PASSWORD SCREEN ===== */
+/* ===== LOCK ===== */
 #lock{
     display:none;
     flex-direction:column;
     gap:15px;
-    background:rgba(255,255,255,0.1);
+    background:rgba(255,255,255,.12);
     backdrop-filter:blur(15px);
     padding:30px;
     border-radius:20px;
-    box-shadow:0 20px 40px rgba(0,0,0,0.3);
 }
-
 .input-box{
     position:relative;
 }
-
 .input-box input{
     width:220px;
     padding:12px 40px 12px 15px;
     border:none;
-    outline:none;
     border-radius:12px;
 }
-
 .input-box span{
     position:absolute;
     right:12px;
@@ -78,96 +68,109 @@ body{
     cursor:pointer;
 }
 
+/* ===== BUTTON ===== */
 button{
     padding:12px;
     border:none;
-    border-radius:12px;
-    background:#ff5fa2;
+    border-radius:14px;
+    background:linear-gradient(135deg,#ff5fa2,#ff8fcf);
     color:white;
     font-size:16px;
     cursor:pointer;
+    box-shadow:0 8px 20px rgba(255,95,162,.4);
 }
 
-/* ===== MAIN CARD ===== */
+/* ===== APP ===== */
 #app{
     display:none;
     position:relative;
-    z-index:10;
+    z-index:5;
 }
 
+/* ===== CARD ===== */
 .card{
-    width:320px;
+    width:330px;
     padding:25px;
     border-radius:25px;
-    background:rgba(255,255,255,0.15);
+    background:rgba(255,255,255,.15);
     backdrop-filter:blur(20px);
-    box-shadow:0 30px 60px rgba(0,0,0,0.4);
+    box-shadow:0 30px 60px rgba(0,0,0,.4);
     text-align:center;
 }
 
-.timer{
-    font-size:18px;
-    margin-bottom:15px;
+/* ===== TIMER DESIGN ===== */
+.timer-box{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+.time{
+    background:rgba(255,255,255,.18);
+    border-radius:12px;
+    padding:10px;
+    width:70px;
+}
+.time span{
+    display:block;
+    font-size:20px;
+    font-weight:600;
     color:#ffd6e8;
+}
+.time small{
+    font-size:11px;
+    opacity:.8;
 }
 
 .card p{
     font-size:14px;
-    line-height:1.6;
     color:#ffe6f2;
+    line-height:1.6;
     margin-bottom:20px;
 }
 
-.audio-btn{
-    background:linear-gradient(135deg,#ff5fa2,#ff8fcf);
-}
-
-/* ===== FLOATING TEXT ===== */
+/* ===== FLOAT TEXT ===== */
 .floating-text{
     position:absolute;
+    color:rgba(255,105,180,.7);
     font-size:18px;
-    color:rgba(255,105,180,0.7);
     animation:fadeIn 1s forwards;
     white-space:nowrap;
 }
-
 @keyframes fadeIn{
-    from{opacity:0; transform:scale(0.8);}
-    to{opacity:1; transform:scale(1);}
+    from{opacity:0;transform:scale(.8)}
+    to{opacity:1;transform:scale(1)}
 }
 
-/* ===== HEARTS ===== */
+/* ===== HEART ===== */
 .heart{
     position:absolute;
     bottom:-30px;
     animation:floatUp 6s linear forwards;
 }
-
 @keyframes floatUp{
-    from{transform:translateY(0); opacity:0;}
-    to{transform:translateY(-110vh); opacity:1;}
+    from{transform:translateY(0);opacity:0}
+    to{transform:translateY(-110vh);opacity:1}
 }
 
-/* ===== SPARKLE TRAIL ===== */
+/* ===== SPARKLE ===== */
 .sparkle{
     position:absolute;
     width:6px;
     height:6px;
     border-radius:50%;
     pointer-events:none;
-    animation:trail 1.5s linear forwards;
+    animation:trail 1.2s linear forwards;
 }
-
 @keyframes trail{
-    from{opacity:0.9; transform:scale(1);}
-    to{opacity:0; transform:scale(0);}
+    from{opacity:.8;transform:scale(1)}
+    to{opacity:0;transform:scale(0)}
 }
 </style>
 </head>
 
 <body>
 
-<div id="splash"><h1>Loading Love… 💖</h1></div>
+<div id="splash"><h1>Loading Love 💖</h1></div>
 
 <div id="lock">
     <h3>Enter Password 💕</h3>
@@ -180,74 +183,66 @@ button{
 
 <div id="app">
     <div class="card">
-        <div class="timer" id="timer"></div>
+        <div class="timer-box">
+            <div class="time"><span id="d">0</span><small>Days</small></div>
+            <div class="time"><span id="h">0</span><small>Hours</small></div>
+            <div class="time"><span id="m">0</span><small>Min</small></div>
+            <div class="time"><span id="s">0</span><small>Sec</small></div>
+        </div>
+
         <p>
-            From the moment we met, my world became brighter.  
-            This time counts every heartbeat with you ❤️
+            Every second with you is a beautiful memory.  
+            This timer counts our love ❤️
         </p>
-        <button class="audio-btn" onclick="toggleMusic()">🎵 Play / Pause</button>
+
+        <button id="musicBtn" onclick="toggleMusic()">▶ Play</button>
         <audio id="music" src=""></audio>
     </div>
 </div>
 
 <script>
-/* ===== SPLASH ===== */
+/* SPLASH */
 setTimeout(()=>{
     splash.style.display="none";
     lock.style.display="flex";
-},2500);
+},2000);
 
-/* ===== PASSWORD ===== */
+/* PASSWORD */
 function togglePass(){
-    pass.type = pass.type === "password" ? "text" : "password";
+    pass.type = pass.type==="password"?"text":"password";
 }
-
 function checkPass(){
-    if(pass.value === "love123"){
+    if(pass.value==="love123"){
         lock.style.display="none";
         app.style.display="block";
-    }else{
-        alert("Wrong Password 💔");
-    }
+    }else alert("Wrong Password 💔");
 }
 
-/* ===== TIMER ===== */
-const startDate = new Date("2025-10-09T00:00:00");
-
+/* TIMER */
+const start=new Date("2025-10-09T00:00:00");
 setInterval(()=>{
-    const now = new Date();
-    let diff = now - startDate;
-
-    let days = Math.floor(diff / (1000*60*60*24));
-    let hours = Math.floor((diff/(1000*60*60))%24);
-    let minutes = Math.floor((diff/(1000*60))%60);
-    let seconds = Math.floor((diff/1000)%60);
-
-    timer.innerHTML = `${days} Days ${hours}h ${minutes}m ${seconds}s`;
+    let diff=new Date()-start;
+    d.innerText=Math.floor(diff/86400000);
+    h.innerText=Math.floor(diff/3600000)%24;
+    m.innerText=Math.floor(diff/60000)%60;
+    s.innerText=Math.floor(diff/1000)%60;
 },1000);
 
-/* ===== MUSIC + TEXT ===== */
-let playing=false;
-let textInterval;
-
+/* MUSIC + TEXT */
+let playing=false, textInt;
 function toggleMusic(){
     playing=!playing;
-    if(playing){
-        music.play();
-        startText();
-    }else{
-        music.pause();
-        clearInterval(textInterval);
-    }
+    musicBtn.innerText = playing ? "⏸ Pause" : "▶ Play";
+    playing ? music.play() : music.pause();
+    playing ? startText() : clearInterval(textInt);
 }
-
 function startText(){
-    const texts=["I LOVE YOU SANNU","YOUR LOVE AKKU"];
+    const arr=["I LOVE YOU SANNU","YOUR LOVE AKKU"];
     let i=0;
-    textInterval=setInterval(()=>{
-        const t=document.createElement("div");
+    textInt=setInterval(()=>{
+        let t=document.createElement("div");
         t.className="floating-text";
-        t.innerText=texts[i%2];
+        t.innerText=arr[i%2];
         t.style.left=Math.random()*70+"%";
         t.style.top=Math.random()*70+"%";
         document.body.appendChild(t);
@@ -256,11 +251,10 @@ function startText(){
     },2000);
 }
 
-/* ===== HEARTS + SPARKLE ===== */
+/* HEART + FIXED SPARKLE */
 const colors=["#ff5fa2","#ff7eb3","#ff4d6d","#ff99cc"];
-
 setInterval(()=>{
-    const h=document.createElement("div");
+    let h=document.createElement("div");
     h.className="heart";
     h.innerHTML="❤";
     h.style.left=Math.random()*90+"%";
@@ -268,15 +262,17 @@ setInterval(()=>{
     h.style.color=colors[Math.floor(Math.random()*colors.length)];
     document.body.appendChild(h);
 
-    const trail=setInterval(()=>{
-        const r=h.getBoundingClientRect();
-        const s=document.createElement("div");
-        s.className="sparkle";
-        s.style.left=r.left+"px";
-        s.style.top=r.top+"px";
-        s.style.background=playing?"rgba(255,182,193,0.9)":"rgba(255,182,193,0.4)";
-        document.body.appendChild(s);
-        setTimeout(()=>s.remove(),1500);
+    let trail=setInterval(()=>{
+        let r=h.getBoundingClientRect();
+        let sp=document.createElement("div");
+        sp.className="sparkle";
+        sp.style.left = r.left + r.width/2 + "px";
+        sp.style.top  = r.top  + r.height/2 + "px";
+        sp.style.background = playing
+            ? "rgba(255,182,193,.9)"
+            : "rgba(255,182,193,.4)";
+        document.body.appendChild(sp);
+        setTimeout(()=>sp.remove(),1200);
     },150);
 
     setTimeout(()=>{
