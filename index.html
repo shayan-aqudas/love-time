@@ -35,7 +35,7 @@ z-index:9999;
 transition:.6s;
 }
 
-/* LOCK CARD */
+/* LOCK */
 #lock{
 display:flex;
 flex-direction:column;
@@ -64,30 +64,30 @@ padding:14px 42px 14px 16px;
 border:none;
 outline:none;
 border-radius:16px;
-font-size:15px;
-}
-.input-box span{
-position:absolute;
-right:14px;
-top:50%;
-transform:translateY(-50%);
-cursor:pointer;
 }
 
-/* BUTTON */
+/* PREMIUM BUTTON */
 .btn{
-padding:14px;
+width:100%;
+padding:18px;
 border:none;
-border-radius:18px;
-font-size:16px;
+border-radius:22px;
+font-size:17px;
 font-weight:600;
 cursor:pointer;
 color:white;
-background:linear-gradient(135deg,#6a11cb,#2575fc);
-box-shadow:0 15px 35px rgba(101,82,255,.45);
-transition:.3s;
+background:linear-gradient(135deg,#7b2ff7,#2575fc);
+box-shadow:
+0 20px 45px rgba(101,82,255,.5),
+inset 0 -4px 12px rgba(0,0,0,.25);
+transition:.35s;
+letter-spacing:.5px;
 }
-.btn:hover{transform:translateY(-2px);}
+
+.btn:hover{
+transform:translateY(-3px) scale(1.02);
+box-shadow:0 25px 55px rgba(101,82,255,.7);
+}
 
 /* APP */
 #app{
@@ -113,7 +113,6 @@ background:linear-gradient(145deg,rgba(255,255,255,.35),rgba(255,255,255,.08));
 backdrop-filter:blur(28px);
 box-shadow:0 50px 100px rgba(0,0,0,.45);
 text-align:center;
-position:relative;
 }
 
 /* TIMER */
@@ -131,33 +130,34 @@ font-size:26px;
 font-weight:700;
 }
 
-/* TEXT AREA (NEW) */
-#textArea{
-position:fixed;
-bottom:40px;
-left:50%;
-transform:translateX(-50%);
-pointer-events:none;
-}
-
-/* FLOAT TEXT */
+/* FLOAT TEXT RANDOM */
 .floating-text{
+position:absolute;
 background:rgba(255,255,255,.12);
-backdrop-filter:blur(12px);
-padding:10px 18px;
-border-radius:20px;
-margin-top:10px;
-font-size:15px;
-animation:textIn 0.6s ease forwards, textOut 0.6s ease forwards 4.4s;
+backdrop-filter:blur(10px);
+padding:8px 14px;
+border-radius:18px;
+font-size:14px;
+white-space:nowrap;
+pointer-events:none;
+
+animation:
+fadeIn 1.2s ease forwards,
+floatMove 7s linear forwards,
+fadeOut 1.2s ease forwards 6s;
 }
 
-@keyframes textIn{
+@keyframes fadeIn{
 from{opacity:0;transform:translateY(20px) scale(.9);}
 to{opacity:1;transform:translateY(0) scale(1);}
 }
 
-@keyframes textOut{
-to{opacity:0;transform:translateY(-15px) scale(.9);}
+@keyframes floatMove{
+to{transform:translateY(-40px);}
+}
+
+@keyframes fadeOut{
+to{opacity:0;}
 }
 
 /* HEART */
@@ -181,7 +181,6 @@ to{transform:translateY(-110vh);opacity:1}
 <h3>Enter Password 💕</h3>
 <div class="input-box">
 <input type="password" id="pass">
-<span onclick="togglePass()">👁</span>
 </div>
 <button class="btn" onclick="checkPass()">Unlock</button>
 </div>
@@ -205,96 +204,99 @@ Every moment with you feels magical.<br>
 This time is counting our forever ❤️
 </p>
 
-<button id="musicBtn" class="btn" onclick="toggleMusic()">▶ Play</button>
+<button id="musicBtn" class="btn" onclick="toggleMusic()">▶ Play Music</button>
 <audio id="music" src="https://shayan-aqudas.github.io/music/best.mp3"></audio>
 
 </div>
 </div>
 
-<!-- TEXT CONTAINER -->
-<div id="textArea"></div>
-
 <script>
 
 /* SPLASH */
 setTimeout(()=>{
-document.getElementById("splash").style.opacity="0";
-setTimeout(()=>{
-document.getElementById("splash").style.display="none";
-},600);
+splash.style.opacity="0";
+setTimeout(()=>splash.style.display="none",600);
 },2000);
 
 /* PASSWORD */
-function togglePass(){
-const pass=document.getElementById("pass");
-pass.type=pass.type==="password"?"text":"password";
-}
-
 function checkPass(){
-if(document.getElementById("pass").value==="love123"){
-
-const lock=document.getElementById("lock");
+if(pass.value==="love123"){
 lock.classList.add("unlock-hide");
-
 setTimeout(()=>{
 lock.style.display="none";
-document.getElementById("app").style.display="flex";
+app.style.display="flex";
 },400);
-
 }else alert("Wrong Password 💔");
 }
 
 /* TIMER */
 const startDate=new Date("2025-10-09T00:00:00");
 setInterval(()=>{
-const now=new Date();
-let diff=now-startDate;
+let diff=new Date()-startDate;
 
 let totalMin=Math.floor(diff/60000);
 let min=totalMin%60;
-let totalHr=Math.floor(totalMin/60);
-let hr=totalHr%24;
-let totalDay=Math.floor(totalHr/24);
+let hr=Math.floor(totalMin/60)%24;
+let day=Math.floor(totalMin/60/24)%30;
+let mon=Math.floor(totalMin/60/24/30);
 
-let mon=Math.floor(totalDay/30);
-let day=totalDay%30;
-
-mon.innerText;
 document.getElementById("mon").innerText=mon;
 document.getElementById("day").innerText=day;
 document.getElementById("hr").innerText=hr;
 document.getElementById("min").innerText=min;
 },1000);
 
-/* MUSIC + TEXT */
-let playing=false,textInt;
+/* MUSIC + RANDOM TEXT SYSTEM */
+let playing=false;
+let textInterval;
+let activeTexts=[];
+const MAX_TEXTS=20;
 
 function toggleMusic(){
-const music=document.getElementById("music");
-const btn=document.getElementById("musicBtn");
-
 playing=!playing;
-btn.innerText=playing?"⏸ Pause":"▶ Play";
 
+musicBtn.innerText=playing?"⏸ Pause Music":"▶ Play Music";
 playing?music.play():music.pause();
-playing?startText():clearInterval(textInt);
+
+if(playing) startFloatingText();
+else clearInterval(textInterval);
 }
 
-function startText(){
-const area=document.getElementById("textArea");
-const arr=["I LOVE YOU SANNU ❤️","YOUR LOVE AKKU 💖"];
-let i=0;
+function startFloatingText(){
 
-textInt=setInterval(()=>{
+const messages=[
+"I LOVE YOU SANNU ❤️",
+"YOUR LOVE AKKU 💖",
+"FOREVER TOGETHER ✨",
+"YOU ARE MY WORLD 🌙"
+];
+
+textInterval=setInterval(()=>{
+
 let t=document.createElement("div");
 t.className="floating-text";
-t.innerText=arr[i%2];
+t.innerText=messages[Math.floor(Math.random()*messages.length)];
 
-area.appendChild(t);
+t.style.left=Math.random()*90+"vw";
+t.style.top=Math.random()*85+"vh";
 
-setTimeout(()=>t.remove(),5000);
-i++;
-},2000);
+document.body.appendChild(t);
+activeTexts.push(t);
+
+/* keep only 20 texts */
+if(activeTexts.length>MAX_TEXTS){
+let old=activeTexts.shift();
+old.style.animation="fadeOut 1.5s forwards";
+setTimeout(()=>old.remove(),1500);
+}
+
+/* auto remove */
+setTimeout(()=>{
+t.remove();
+activeTexts=activeTexts.filter(el=>el!==t);
+},7000);
+
+},900);
 }
 
 /* HEARTS */
