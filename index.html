@@ -23,7 +23,7 @@ body{
     color:white;
 }
 
-/* ===== SPLASH ===== */
+/* SPLASH */
 #splash{
     position:fixed;
     inset:0;
@@ -33,32 +33,29 @@ body{
     align-items:center;
     z-index:9999;
 }
-#splash h1{
-    animation:pulse 1.5s infinite;
-}
+#splash h1{animation:pulse 1.5s infinite;}
 @keyframes pulse{
     0%,100%{opacity:.3}
     50%{opacity:1}
 }
 
-/* ===== LOCK ===== */
+/* LOCK */
 #lock{
     display:none;
     flex-direction:column;
     gap:15px;
     background:rgba(255,255,255,.12);
-    backdrop-filter:blur(15px);
+    backdrop-filter:blur(18px);
     padding:30px;
-    border-radius:20px;
+    border-radius:22px;
+    box-shadow:0 25px 50px rgba(0,0,0,.4);
 }
-.input-box{
-    position:relative;
-}
+.input-box{position:relative;}
 .input-box input{
     width:220px;
     padding:12px 40px 12px 15px;
     border:none;
-    border-radius:12px;
+    border-radius:14px;
 }
 .input-box span{
     position:absolute;
@@ -68,52 +65,61 @@ body{
     cursor:pointer;
 }
 
-/* ===== BUTTON ===== */
+/* BUTTON COMMON */
 button{
-    padding:12px;
     border:none;
-    border-radius:14px;
-    background:linear-gradient(135deg,#ff5fa2,#ff8fcf);
-    color:white;
-    font-size:16px;
     cursor:pointer;
-    box-shadow:0 8px 20px rgba(255,95,162,.4);
+    color:white;
 }
 
-/* ===== APP ===== */
-#app{
-    display:none;
-    position:relative;
-    z-index:5;
-}
+/* APP */
+#app{display:none;z-index:5}
 
-/* ===== CARD ===== */
+/* 🌸 CARD BEAUTY */
 .card{
-    width:330px;
-    padding:25px;
-    border-radius:25px;
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(20px);
-    box-shadow:0 30px 60px rgba(0,0,0,.4);
+    width:340px;
+    padding:30px 25px;
+    border-radius:30px;
+    background:
+      linear-gradient(145deg,rgba(255,255,255,.25),rgba(255,255,255,.05));
+    backdrop-filter:blur(22px);
+    box-shadow:
+      0 40px 80px rgba(0,0,0,.45),
+      inset 0 0 25px rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.25);
     text-align:center;
+    position:relative;
 }
 
-/* ===== TIMER DESIGN ===== */
+/* GLOW RING */
+.card::before{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    border-radius:inherit;
+    background:linear-gradient(135deg,#ff5fa2,#ff9acb,#ff5fa2);
+    opacity:.35;
+    filter:blur(12px);
+    z-index:-1;
+}
+
+/* TIMER */
 .timer-box{
     display:flex;
     justify-content:space-between;
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 .time{
+    width:72px;
+    padding:12px 0;
+    border-radius:16px;
     background:rgba(255,255,255,.18);
-    border-radius:12px;
-    padding:10px;
-    width:70px;
+    box-shadow:inset 0 0 15px rgba(255,255,255,.15);
 }
 .time span{
     display:block;
-    font-size:20px;
-    font-weight:600;
+    font-size:22px;
+    font-weight:700;
     color:#ffd6e8;
 }
 .time small{
@@ -121,14 +127,38 @@ button{
     opacity:.8;
 }
 
+/* TEXT */
 .card p{
     font-size:14px;
+    line-height:1.7;
     color:#ffe6f2;
-    line-height:1.6;
-    margin-bottom:20px;
+    margin-bottom:25px;
 }
 
-/* ===== FLOAT TEXT ===== */
+/* 🎵 AUDIO BUTTON BEAUTY */
+#musicBtn{
+    width:100%;
+    padding:14px;
+    border-radius:18px;
+    font-size:17px;
+    font-weight:600;
+    background:linear-gradient(135deg,#ff5fa2,#ff85c2);
+    box-shadow:
+      0 10px 25px rgba(255,95,162,.45),
+      inset 0 -4px 10px rgba(0,0,0,.25);
+    transition:.3s;
+}
+#musicBtn:hover{
+    transform:translateY(-2px);
+    box-shadow:
+      0 15px 35px rgba(255,95,162,.6),
+      inset 0 -4px 10px rgba(0,0,0,.25);
+}
+#musicBtn:active{
+    transform:scale(.97);
+}
+
+/* FLOAT TEXT */
 .floating-text{
     position:absolute;
     color:rgba(255,105,180,.7);
@@ -137,11 +167,11 @@ button{
     white-space:nowrap;
 }
 @keyframes fadeIn{
-    from{opacity:0;transform:scale(.8)}
+    from{opacity:0;transform:scale(.85)}
     to{opacity:1;transform:scale(1)}
 }
 
-/* ===== HEART ===== */
+/* HEART */
 .heart{
     position:absolute;
     bottom:-30px;
@@ -152,7 +182,7 @@ button{
     to{transform:translateY(-110vh);opacity:1}
 }
 
-/* ===== SPARKLE ===== */
+/* SPARKLE */
 .sparkle{
     position:absolute;
     width:6px;
@@ -162,7 +192,7 @@ button{
     animation:trail 1.2s linear forwards;
 }
 @keyframes trail{
-    from{opacity:.8;transform:scale(1)}
+    from{opacity:.9;transform:scale(1)}
     to{opacity:0;transform:scale(0)}
 }
 </style>
@@ -178,7 +208,7 @@ button{
         <input type="password" id="pass">
         <span onclick="togglePass()">👁</span>
     </div>
-    <button onclick="checkPass()">Unlock</button>
+    <button onclick="checkPass()" style="padding:12px;border-radius:16px;background:#ff5fa2;">Unlock</button>
 </div>
 
 <div id="app">
@@ -191,8 +221,8 @@ button{
         </div>
 
         <p>
-            Every second with you is a beautiful memory.  
-            This timer counts our love ❤️
+            Every second with you is a heartbeat I cherish.  
+            This timer counts our forever ❤️
         </p>
 
         <button id="musicBtn" onclick="toggleMusic()">▶ Play</button>
@@ -229,12 +259,12 @@ setInterval(()=>{
 },1000);
 
 /* MUSIC + TEXT */
-let playing=false, textInt;
+let playing=false,textInt;
 function toggleMusic(){
     playing=!playing;
-    musicBtn.innerText = playing ? "⏸ Pause" : "▶ Play";
-    playing ? music.play() : music.pause();
-    playing ? startText() : clearInterval(textInt);
+    musicBtn.innerText=playing?"⏸ Pause":"▶ Play";
+    playing?music.play():music.pause();
+    playing?startText():clearInterval(textInt);
 }
 function startText(){
     const arr=["I LOVE YOU SANNU","YOUR LOVE AKKU"];
@@ -251,7 +281,7 @@ function startText(){
     },2000);
 }
 
-/* HEART + FIXED SPARKLE */
+/* HEART + SPARKLE FIXED */
 const colors=["#ff5fa2","#ff7eb3","#ff4d6d","#ff99cc"];
 setInterval(()=>{
     let h=document.createElement("div");
@@ -266,11 +296,9 @@ setInterval(()=>{
         let r=h.getBoundingClientRect();
         let sp=document.createElement("div");
         sp.className="sparkle";
-        sp.style.left = r.left + r.width/2 + "px";
-        sp.style.top  = r.top  + r.height/2 + "px";
-        sp.style.background = playing
-            ? "rgba(255,182,193,.9)"
-            : "rgba(255,182,193,.4)";
+        sp.style.left=r.left+r.width/2+"px";
+        sp.style.top=r.top+r.height/2+"px";
+        sp.style.background=playing?"rgba(255,182,193,.9)":"rgba(255,182,193,.4)";
         document.body.appendChild(sp);
         setTimeout(()=>sp.remove(),1200);
     },150);
