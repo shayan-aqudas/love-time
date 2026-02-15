@@ -13,7 +13,6 @@
     font-family:'Poppins', sans-serif;
 }
 
-/* ===== BODY ===== */
 body{
     min-height:100vh;
     background: radial-gradient(circle at top, #1b2735, #090a0f);
@@ -23,84 +22,6 @@ body{
     overflow:hidden;
 }
 
-/* ===== STARS ===== */
-    .floating-text{
-    max-width: 80%;
-    text-align: center;
-    word-wrap: break-word;
-    }
-.star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    opacity:0.6;
-    animation: twinkle 3s infinite alternate;
-}
-
-@keyframes twinkle{
-    from{opacity:0.2;}
-    to{opacity:0.8;}
-}
-
-/* ===== HEARTS ===== */
-.heart{
-    position:absolute;
-    font-size:18px;
-    color:rgba(255,105,180,0.6);
-    animation: floatUp 6s linear infinite;
-}
-
-@keyframes floatUp{
-    from{
-        transform:translateY(100vh);
-        opacity:0;
-    }
-    to{
-        transform:translateY(-10vh);
-        opacity:1;
-    }
-}
-/* ===== HEART ===== */
-.heart{
-    position:absolute;
-    bottom:-30px;
-    animation: floatUp 6s linear forwards;
-    opacity:0.9;
-    pointer-events:none;
-}
-
-/* ===== SPARKLE ===== */
-.sparkle{
-    position:absolute;
-    width:4px;
-    height:4px;
-    background: rgba(255,182,193,0.9);
-    border-radius:50%;
-    animation: sparkle 1.2s ease-out forwards;
-}
-
-@keyframes sparkle{
-    from{
-        transform:scale(1);
-        opacity:1;
-    }
-    to{
-        transform:scale(0);
-        opacity:0;
-    }
-}
-
-@keyframes floatUp{
-    from{
-        transform:translateY(0);
-        opacity:0;
-    }
-    to{
-        transform:translateY(-110vh);
-        opacity:1;
-    }
-}
 /* ===== CARD ===== */
 .card{
     width:90%;
@@ -164,15 +85,17 @@ button{
 /* ===== FLOATING TEXT ===== */
 .floating-text{
     position:absolute;
+    max-width:80%;
+    text-align:center;
     font-size:16px;
     font-weight:600;
     color:pink;
     opacity:0;
     text-shadow:0 0 8px rgba(255,105,180,0.9);
-    animation: appear 2s ease forwards, float 4s ease-in-out infinite;
+    animation: textAppear 2s ease forwards, float 4s ease-in-out infinite;
 }
 
-@keyframes appear{
+@keyframes textAppear{
     from{
         opacity:0;
         transform:translateY(20px) scale(0.9);
@@ -187,6 +110,33 @@ button{
     0%{transform:translateY(0);}
     50%{transform:translateY(-10px);}
     100%{transform:translateY(0);}
+}
+
+/* ===== HEART ===== */
+.heart{
+    position:absolute;
+    bottom:-30px;
+    pointer-events:none;
+    animation: floatUp 6s linear forwards;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0);opacity:0;}
+    to{transform:translateY(-110vh);opacity:1;}
+}
+
+/* ===== SPARKLE TRAIL ===== */
+.sparkle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    animation: sparkleFade 1.5s linear forwards;
+}
+
+@keyframes sparkleFade{
+    from{opacity:0.9;transform:scale(1);}
+    to{opacity:0;transform:scale(0);}
 }
 </style>
 </head>
@@ -203,14 +153,14 @@ button{
 
     <div class="love-text">
         09 October 2025 se shuru hui ye kahani,  
-        har second ke saath aur bhi gehri hoti ja rahi hai 💞
+        har second ke saath aur bhi khubsurat hoti ja rahi hai 💞
     </div>
 
     <button onclick="toggleMusic()">Play Our Love 🎶</button>
 </div>
 
 <audio id="music" loop>
-    <source src="https://shayan-aqudas.github.io/music/best.mp3" type="audio/mpeg">
+    <source src="YOUR_MUSIC_LINK_HERE.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -231,113 +181,86 @@ setInterval(()=>{
     minutes.innerText=m%60;
 },1000);
 
-/* ===== STARS ===== */
-for(let i=0;i<80;i++){
-    const star=document.createElement("div");
-    star.className="star";
-    star.style.left=Math.random()*100+"%";
-    star.style.top=Math.random()*100+"%";
-    document.body.appendChild(star);
-}
-
-/* ===== HEARTS ===== */
-/* ===== AUTO FLOATING HEARTS (ALWAYS ON) ===== */
-/* ===== HEART SETTINGS ===== */
-const heartColors = [
-    "#ff4d6d",
-    "#ff6fae",
-    "#ff85c8",
-    "#ff2f92",
-    "#ff5fa2"
-];
-
-let musicPlaying = false;
-
-/* ===== AUTO HEARTS (ALWAYS FLOAT) ===== */
-setInterval(() => {
-    createHeart();
-}, 1200);
-
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤";
-
-    /* POSITION */
-    heart.style.left = Math.random() * 90 + "%";
-
-    /* SIZE CONTROL */
-    let size = musicPlaying
-        ? Math.random() * 10 + 18   // 18px – 28px (play)
-        : Math.random() * 6 + 16;   // 16px – 22px (pause)
-
-    heart.style.fontSize = size + "px";
-
-    /* COLOR */
-    heart.style.color = musicPlaying
-        ? heartColors[Math.floor(Math.random() * heartColors.length)]
-        : "rgba(255,105,180,0.5)";
-
-    document.body.appendChild(heart);
-
-    /* SPARKLES (ONLY WHEN MUSIC PLAYING) */
-    if(musicPlaying){
-        for(let i=0;i<4;i++){
-            const sp = document.createElement("div");
-            sp.className = "sparkle";
-            sp.style.left = Math.random()*12 - 6 + "px";
-            sp.style.top  = Math.random()*12 - 6 + "px";
-            heart.appendChild(sp);
-        }
-    }
-
-    setTimeout(()=>heart.remove(),6000);
-}
-/* ===== MUSIC & TEXT ===== */
+/* ===== MUSIC ===== */
 let playing=false;
+let musicPlaying=false;
 let textInterval=null;
+
+/* ===== TEXT ===== */
+function startText(){
+    if(textInterval) return;
+    textInterval=setInterval(()=>{
+        const texts=["I LOVE YOU SANNU..","YOUR LOVE AKKU.."];
+        const t=document.createElement("div");
+        t.className="floating-text";
+        t.innerText=texts[Math.floor(Math.random()*texts.length)];
+        t.style.left=Math.random()*70+"%";
+        t.style.top=Math.random()*80+"%";
+        document.body.appendChild(t);
+    },2000);
+}
+
+function stopText(){
+    clearInterval(textInterval);
+    textInterval=null;
+}
 
 function toggleMusic(){
     const music=document.getElementById("music");
     const btn=document.querySelector("button");
 
     if(!playing){
-        musicPlaying = true; 
         music.play();
         btn.innerText="Pause Our Love ⏸";
+        musicPlaying=true;
         startText();
         playing=true;
     }else{
-        musicPlaying = false;  // 👈 ADD
         music.pause();
         btn.innerText="Play Our Love 🎶";
+        musicPlaying=false;
         stopText();
         playing=false;
     }
-    
 }
 
-/* ===== TEXT INTERVAL (TIME INCREASED HERE) ===== */
-function startText(){
-    if(textInterval) return;
+/* ===== HEARTS + SPARKLE ===== */
+const heartColors=["#ff4d6d","#ff6fae","#ff85c8","#ff2f92","#ff5fa2"];
 
-    textInterval = setInterval(()=>{
-        const texts = ["I LOVE YOU SANNU..", "YOUR LOVE AKKU.."];
-        const t = document.createElement("div");
-        t.className = "floating-text";
-        t.innerText = texts[Math.floor(Math.random()*texts.length)];
+setInterval(createHeart,1200);
 
-        /* SAFE POSITION (SCREEN KE ANDAR) */
-        t.style.left = Math.random() * 70 + "%";  // 👈 body se bahar nahi jayega
-        t.style.top  = Math.random() * 80 + "%";  // 👈 safe vertical area
+function createHeart(){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤";
+    h.style.left=Math.random()*90+"%";
 
-        document.body.appendChild(t);
-    }, 1500); // 👈 har 2 second mein
-}
+    let size=musicPlaying ? Math.random()*10+18 : Math.random()*6+16;
+    h.style.fontSize=size+"px";
 
-function stopText(){
-    clearInterval(textInterval);
-    textInterval=null;
+    h.style.color=musicPlaying
+        ? heartColors[Math.floor(Math.random()*heartColors.length)]
+        : "rgba(255,105,180,0.5)";
+
+    document.body.appendChild(h);
+
+    const trail=setInterval(()=>{
+        const r=h.getBoundingClientRect();
+        const sp=document.createElement("div");
+        sp.className="sparkle";
+        sp.style.left=r.left+r.width/2+"px";
+        sp.style.top=r.top+r.height/2+"px";
+        sp.style.background=musicPlaying
+            ? "rgba(255,182,193,0.9)"
+            : "rgba(255,182,193,0.4)";
+        document.body.appendChild(sp);
+        setTimeout(()=>sp.remove(),1500);
+    }, musicPlaying?120:220);
+
+    setTimeout(()=>{
+        clearInterval(trail);
+        h.remove();
+    },6000);
 }
 </script>
 
