@@ -6,123 +6,146 @@
 <title>Our Love 💖</title>
 
 <style>
+/* ===== RESET ===== */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body{
-    min-height:100vh;
-    background: radial-gradient(circle at top, #1b2735, #090a0f);
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     display:flex;
     justify-content:center;
     align-items:center;
-    overflow:hidden;
+    color:#fff;
 }
 
-/* ===== CARD ===== */
-.card{
-    width:90%;
-    max-width:390px;
-    padding:28px;
-    text-align:center;
-    background: rgba(255,255,255,0.18);
-    backdrop-filter: blur(18px);
-    border-radius:22px;
-    border:1px solid rgba(255,255,255,0.35);
-    box-shadow:0 10px 40px rgba(0,0,0,0.4);
+/* ===== SPLASH SCREEN ===== */
+#splash{
+    position:fixed;
+    inset:0;
+    background:#0f2027;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#splash h1{
+    font-size:26px;
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{opacity:0.3;}
+    50%{opacity:1;}
+    100%{opacity:0.3;}
+}
+
+/* ===== PASSWORD SCREEN ===== */
+#lock{
+    display:none;
+    flex-direction:column;
+    gap:15px;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box input{
+    width:220px;
+    padding:12px 40px 12px 15px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+}
+
+.input-box span{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+}
+
+button{
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#ff5fa2;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* ===== MAIN CARD ===== */
+#app{
+    display:none;
+    position:relative;
     z-index:10;
 }
 
-/* ===== TIMER ===== */
-.timer-box{
-    display:grid;
-    grid-template-columns: repeat(2,1fr);
-    gap:12px;
+.card{
+    width:320px;
+    padding:25px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 60px rgba(0,0,0,0.4);
+    text-align:center;
 }
 
-.time{
-    background: rgba(255,255,255,0.22);
-    padding:12px;
-    border-radius:14px;
+.timer{
+    font-size:18px;
+    margin-bottom:15px;
+    color:#ffd6e8;
 }
 
-.time h2{
-    font-size:22px;
-    background: linear-gradient(135deg,#ff77c6,#ffd1e8);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.time p{
-    font-size:12px;
+.card p{
+    font-size:14px;
+    line-height:1.6;
     color:#ffe6f2;
+    margin-bottom:20px;
 }
 
-/* ===== TEXT ===== */
-.love-text{
-    margin:18px 0 22px;
-    font-size:14.5px;
-    color:#ffe0f0;
-    line-height:1.7;
-}
-
-/* ===== BUTTON ===== */
-button{
-    padding:13px 34px;
-    border:none;
-    border-radius:35px;
-    background: linear-gradient(135deg,#ff4fa3,#ff85c8);
-    color:white;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    box-shadow:0 8px 22px rgba(255,79,163,0.6);
+.audio-btn{
+    background:linear-gradient(135deg,#ff5fa2,#ff8fcf);
 }
 
 /* ===== FLOATING TEXT ===== */
 .floating-text{
     position:absolute;
-    max-width:80%;
-    text-align:center;
-    font-size:16px;
-    font-weight:600;
-    color:pink;
-    opacity:0;
-    text-shadow:0 0 8px rgba(255,105,180,0.9);
-    animation: textAppear 2s ease forwards, float 4s ease-in-out infinite;
+    font-size:18px;
+    color:rgba(255,105,180,0.7);
+    animation:fadeIn 1s forwards;
+    white-space:nowrap;
 }
 
-@keyframes textAppear{
-    from{
-        opacity:0;
-        transform:translateY(20px) scale(0.9);
-    }
-    to{
-        opacity:0.7;
-        transform:translateY(0) scale(1);
-    }
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.8);}
+    to{opacity:1; transform:scale(1);}
 }
 
-@keyframes float{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-    100%{transform:translateY(0);}
-}
-
-/* ===== HEART ===== */
+/* ===== HEARTS ===== */
 .heart{
     position:absolute;
     bottom:-30px;
-    pointer-events:none;
-    animation: floatUp 6s linear forwards;
+    animation:floatUp 6s linear forwards;
 }
 
 @keyframes floatUp{
-    from{transform:translateY(0);opacity:0;}
-    to{transform:translateY(-110vh);opacity:1;}
+    from{transform:translateY(0); opacity:0;}
+    to{transform:translateY(-110vh); opacity:1;}
 }
 
 /* ===== SPARKLE TRAIL ===== */
@@ -131,137 +154,136 @@ button{
     width:6px;
     height:6px;
     border-radius:50%;
-    animation: sparkleFade 1.5s linear forwards;
+    pointer-events:none;
+    animation:trail 1.5s linear forwards;
 }
 
-@keyframes sparkleFade{
-    from{opacity:0.9;transform:scale(1);}
-    to{opacity:0;transform:scale(0);}
+@keyframes trail{
+    from{opacity:0.9; transform:scale(1);}
+    to{opacity:0; transform:scale(0);}
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-    <div class="timer-box">
-        <div class="time"><h2 id="months">0</h2><p>Months</p></div>
-        <div class="time"><h2 id="days">0</h2><p>Days</p></div>
-        <div class="time"><h2 id="hours">0</h2><p>Hours</p></div>
-        <div class="time"><h2 id="minutes">0</h2><p>Minutes</p></div>
-    </div>
+<div id="splash"><h1>Loading Love… 💖</h1></div>
 
-    <div class="love-text">
-        09 October 2025 se shuru hui ye kahani,  
-        har second ke saath aur bhi khubsurat hoti ja rahi hai 💞
+<div id="lock">
+    <h3>Enter Password 💕</h3>
+    <div class="input-box">
+        <input type="password" id="pass">
+        <span onclick="togglePass()">👁</span>
     </div>
-
-    <button onclick="toggleMusic()">Play Our Love 🎶</button>
+    <button onclick="checkPass()">Unlock</button>
 </div>
 
-<audio id="music" loop>
-    <source src="https://shayan-aqudas.github.io/music/best.mp3" type="audio/mpeg">
-</audio>
+<div id="app">
+    <div class="card">
+        <div class="timer" id="timer"></div>
+        <p>
+            From the moment we met, my world became brighter.  
+            This time counts every heartbeat with you ❤️
+        </p>
+        <button class="audio-btn" onclick="toggleMusic()">🎵 Play / Pause</button>
+        <audio id="music" src=""></audio>
+    </div>
+</div>
 
 <script>
-/* ===== TIMER ===== */
-const startDate = new Date("2025-10-09T00:00:00");
-setInterval(()=>{
-    const now=new Date();
-    let diff=now-startDate;
-    let s=Math.floor(diff/1000);
-    let m=Math.floor(s/60);
-    let h=Math.floor(m/60);
-    let d=Math.floor(h/24);
-    let mo=Math.floor(d/30);
+/* ===== SPLASH ===== */
+setTimeout(()=>{
+    splash.style.display="none";
+    lock.style.display="flex";
+},2500);
 
-    months.innerText=mo;
-    days.innerText=d%30;
-    hours.innerText=h%24;
-    minutes.innerText=m%60;
-},1000);
-
-/* ===== MUSIC ===== */
-let playing=false;
-let musicPlaying=false;
-let textInterval=null;
-
-/* ===== TEXT ===== */
-function startText(){
-    if(textInterval) return;
-    textInterval=setInterval(()=>{
-        const texts=["I LOVE YOU SANNU..","YOUR LOVE AKKU.."];
-        const t=document.createElement("div");
-        t.className="floating-text";
-        t.innerText=texts[Math.floor(Math.random()*texts.length)];
-        t.style.left=Math.random()*70+"%";
-        t.style.top=Math.random()*80+"%";
-        document.body.appendChild(t);
-    },2000);
+/* ===== PASSWORD ===== */
+function togglePass(){
+    pass.type = pass.type === "password" ? "text" : "password";
 }
 
-function stopText(){
-    clearInterval(textInterval);
-    textInterval=null;
-}
-
-function toggleMusic(){
-    const music=document.getElementById("music");
-    const btn=document.querySelector("button");
-
-    if(!playing){
-        music.play();
-        btn.innerText="Pause Our Love ⏸";
-        musicPlaying=true;
-        startText();
-        playing=true;
+function checkPass(){
+    if(pass.value === "love123"){
+        lock.style.display="none";
+        app.style.display="block";
     }else{
-        music.pause();
-        btn.innerText="Play Our Love 🎶";
-        musicPlaying=false;
-        stopText();
-        playing=false;
+        alert("Wrong Password 💔");
     }
 }
 
+/* ===== TIMER ===== */
+const startDate = new Date("2025-10-09T00:00:00");
+
+setInterval(()=>{
+    const now = new Date();
+    let diff = now - startDate;
+
+    let days = Math.floor(diff / (1000*60*60*24));
+    let hours = Math.floor((diff/(1000*60*60))%24);
+    let minutes = Math.floor((diff/(1000*60))%60);
+    let seconds = Math.floor((diff/1000)%60);
+
+    timer.innerHTML = `${days} Days ${hours}h ${minutes}m ${seconds}s`;
+},1000);
+
+/* ===== MUSIC + TEXT ===== */
+let playing=false;
+let textInterval;
+
+function toggleMusic(){
+    playing=!playing;
+    if(playing){
+        music.play();
+        startText();
+    }else{
+        music.pause();
+        clearInterval(textInterval);
+    }
+}
+
+function startText(){
+    const texts=["I LOVE YOU SANNU","YOUR LOVE AKKU"];
+    let i=0;
+    textInterval=setInterval(()=>{
+        const t=document.createElement("div");
+        t.className="floating-text";
+        t.innerText=texts[i%2];
+        t.style.left=Math.random()*70+"%";
+        t.style.top=Math.random()*70+"%";
+        document.body.appendChild(t);
+        setTimeout(()=>t.remove(),8000);
+        i++;
+    },2000);
+}
+
 /* ===== HEARTS + SPARKLE ===== */
-const heartColors=["#ff4d6d","#ff6fae","#ff85c8","#ff2f92","#ff5fa2"];
+const colors=["#ff5fa2","#ff7eb3","#ff4d6d","#ff99cc"];
 
-setInterval(createHeart,1200);
-
-function createHeart(){
+setInterval(()=>{
     const h=document.createElement("div");
     h.className="heart";
     h.innerHTML="❤";
     h.style.left=Math.random()*90+"%";
-
-    let size=musicPlaying ? Math.random()*10+18 : Math.random()*6+16;
-    h.style.fontSize=size+"px";
-
-    h.style.color=musicPlaying
-        ? heartColors[Math.floor(Math.random()*heartColors.length)]
-        : "rgba(255,105,180,0.5)";
-
+    h.style.fontSize=(Math.random()*10+18)+"px";
+    h.style.color=colors[Math.floor(Math.random()*colors.length)];
     document.body.appendChild(h);
 
     const trail=setInterval(()=>{
         const r=h.getBoundingClientRect();
-        const sp=document.createElement("div");
-        sp.className="sparkle";
-        sp.style.left=r.left+r.width/2+"px";
-        sp.style.top=r.top+r.height/2+"px";
-        sp.style.background=musicPlaying
-            ? "rgba(255,182,193,0.9)"
-            : "rgba(255,182,193,0.4)";
-        document.body.appendChild(sp);
-        setTimeout(()=>sp.remove(),1500);
-    }, musicPlaying?120:220);
+        const s=document.createElement("div");
+        s.className="sparkle";
+        s.style.left=r.left+"px";
+        s.style.top=r.top+"px";
+        s.style.background=playing?"rgba(255,182,193,0.9)":"rgba(255,182,193,0.4)";
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),1500);
+    },150);
 
     setTimeout(()=>{
         clearInterval(trail);
         h.remove();
     },6000);
-}
+},1200);
 </script>
 
 </body>
