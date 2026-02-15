@@ -3,87 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Love Time 💖</title>
+<title>Our Love 💖</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
 }
 
-body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+/* ===== BODY BACKGROUND ===== */
+body{
+    min-height:100vh;
+    background: linear-gradient(135deg, #0b1020, #1a1f3c, #2b1055);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
 }
 
-/* Glass Card */
-.card {
-    width: 90%;
-    max-width: 380px;
-    padding: 25px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.4);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    z-index: 10;
+/* ===== GLASS CARD ===== */
+.card{
+    width:90%;
+    max-width:390px;
+    padding:28px;
+    text-align:center;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(18px);
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,0.35);
+    box-shadow:0 10px 40px rgba(0,0,0,0.4);
+    z-index:10;
 }
 
-/* Timer */
-.timer {
-    font-size: 18px;
-    font-weight: 600;
-    color: #ff2f92;
-    margin-bottom: 15px;
+/* ===== TIMER DESIGN ===== */
+.timer-box{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:12px;
+    margin-bottom:18px;
 }
 
-/* Love Text */
-.love-text {
-    font-size: 15px;
-    color: rgba(240,240,240,0.9;
-    line-height: 1.6;
-    margin-bottom: 20px;
+.time{
+    background: rgba(255,255,255,0.2);
+    padding:12px;
+    border-radius:14px;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.15);
 }
 
-/* Button */
-button {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #ff2f92, #ff7eb3);
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(255,47,146,0.5);
-    transition: 0.3s;
+.time h2{
+    font-size:22px;
+    font-weight:700;
+    background: linear-gradient(135deg, #ff77c6, #ffd1e8);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-button:hover {
-    transform: scale(1.05);
+.time p{
+    font-size:12px;
+    color:#ffe6f2;
+    margin-top:4px;
 }
 
-/* Floating Text */
-.floating-text {
-    position: absolute;
-    font-size: 16px;
-    color: pink;
-    opacity: 0.7;
-    animation: fade 4s linear forwards;
+/* ===== CARD TEXT ===== */
+.love-text{
+    font-size:14.5px;
+    color:#ffe0f0;
+    line-height:1.7;
+    margin:18px 0 22px;
 }
 
-@keyframes fade {
-    0% { opacity: 0; }
-    20% { opacity: 0.7; }
-    80% { opacity: 0.7; }
-    100% { opacity: 0; }
+/* ===== BUTTON ===== */
+button{
+    padding:13px 34px;
+    border:none;
+    border-radius:35px;
+    background: linear-gradient(135deg, #ff4fa3, #ff85c8);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 8px 22px rgba(255,79,163,0.6);
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.06);
+}
+
+/* ===== FLOATING TEXT ===== */
+.floating-text{
+    position:absolute;
+    font-size:16px;
+    font-weight:600;
+    color:pink;
+    opacity:0.7;
+    text-shadow:0 0 8px rgba(255,105,180,0.8);
 }
 </style>
 </head>
@@ -91,81 +107,102 @@ button:hover {
 <body>
 
 <div class="card">
-    <div class="timer" id="timer">Loading...</div>
 
-    <div class="love-text">
-        From the moment our hearts met on <b>09 October 2025</b>,  
-        every second with you became a beautiful memory.  
-        This time is not just numbers, it’s our love growing forever 💕
+    <!-- TIMER -->
+    <div class="timer-box">
+        <div class="time">
+            <h2 id="months">0</h2>
+            <p>Months</p>
+        </div>
+        <div class="time">
+            <h2 id="days">0</h2>
+            <p>Days</p>
+        </div>
+        <div class="time">
+            <h2 id="hours">0</h2>
+            <p>Hours</p>
+        </div>
+        <div class="time">
+            <h2 id="minutes">0</h2>
+            <p>Minutes</p>
+        </div>
     </div>
 
-    <button onclick="startLove()">Play Our Love 🎶</button>
+    <!-- TEXT -->
+    <div class="love-text">
+        09 October 2025 se shuru hui ye kahani,  
+        har second ke saath aur bhi khubsurat hoti ja rahi hai.  
+        Ye sirf time nahi, **hamara pyaar hai** 💞
+    </div>
+
+    <!-- BUTTON -->
+    <button onclick="toggleMusic()">Play Our Love 🎶</button>
 </div>
 
-<!-- Music (replace src with your own) -->
+<!-- AUDIO -->
 <audio id="music" loop>
     <source src="YOUR_MUSIC_LINK_HERE.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 const startDate = new Date("2025-10-09T00:00:00");
+let textInterval = null;
+let isPlaying = false;
 
-function updateTimer() {
+function updateTimer(){
     const now = new Date();
     let diff = now - startDate;
 
-    let seconds = Math.floor(diff / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    let days = Math.floor(hours / 24);
-    let months = Math.floor(days / 30);
+    let sec = Math.floor(diff/1000);
+    let min = Math.floor(sec/60);
+    let hr  = Math.floor(min/60);
+    let day = Math.floor(hr/24);
+    let month = Math.floor(day/30);
 
-    days %= 30;
-    hours %= 24;
-    minutes %= 60;
-    seconds %= 60;
-
-    document.getElementById("timer").innerHTML =
-        `${months} Months • ${days} Days<br>
-         ${hours} Hours • ${minutes} Minutes • ${seconds} Seconds`;
+    document.getElementById("months").innerText = month;
+    document.getElementById("days").innerText = day % 30;
+    document.getElementById("hours").innerText = hr % 24;
+    document.getElementById("minutes").innerText = min % 60;
 }
-
-setInterval(updateTimer, 1000);
+setInterval(updateTimer,1000);
 updateTimer();
 
-let textInterval;
-let removeInterval;
+/* ===== MUSIC + TEXT CONTROL ===== */
+function toggleMusic(){
+    const music = document.getElementById("music");
+    const btn = document.querySelector("button");
 
-function startLove() {
-    document.getElementById("music").play();
+    if(!isPlaying){
+        music.play();
+        btn.innerText = "Pause Our Love ⏸";
+        startText();
+        isPlaying = true;
+    }else{
+        music.pause();
+        btn.innerText = "Play Our Love 🎶";
+        stopText();
+        isPlaying = false;
+    }
+}
 
+/* ===== TEXT GENERATION ===== */
+function startText(){
+    if(textInterval) return;
+
+    textInterval = setInterval(()=>{
+        const texts = ["I LOVE YOU SANNU..", "YOUR LOVE AKKU.."];
+        const div = document.createElement("div");
+        div.className = "floating-text";
+        div.innerText = texts[Math.floor(Math.random()*texts.length)];
+        div.style.left = Math.random()*85 + "%";
+        div.style.top = Math.random()*85 + "%";
+        document.body.appendChild(div);
+    },600);
+}
+
+function stopText(){
     clearInterval(textInterval);
-    clearInterval(removeInterval);
-
-    textInterval = setInterval(createText, 500);
-
-    setTimeout(() => {
-        clearInterval(textInterval);
-        removeInterval = setInterval(removeText, 300);
-    }, 20000);
-}
-
-function createText() {
-    const texts = ["I LOVE YOU SANNU..", "YOUR LOVE AKKU.."];
-    const div = document.createElement("div");
-    div.className = "floating-text";
-    div.innerText = texts[Math.floor(Math.random() * texts.length)];
-    div.style.left = Math.random() * 90 + "%";
-    div.style.top = Math.random() * 90 + "%";
-    document.body.appendChild(div);
-
-    setTimeout(() => div.remove(), 4000);
-}
-
-function removeText() {
-    const texts = document.querySelectorAll(".floating-text");
-    if (texts.length === 0) clearInterval(removeInterval);
-    texts.forEach(t => t.remove());
+    textInterval = null;
 }
 </script>
 
