@@ -230,15 +230,19 @@ function toggleMusic(){
 /* ===== TEXT INTERVAL (TIME INCREASED HERE) ===== */
 function startText(){
     if(textInterval) return;
-    textInterval=setInterval(()=>{
-        const texts=["I LOVE YOU SANNU..","YOUR LOVE AKKU.."];
-        const t=document.createElement("div");
-        t.className="floating-text";
-        t.innerText=texts[Math.floor(Math.random()*texts.length)];
-        t.style.left=Math.random()*85+"%";
-        t.style.top=Math.random()*85+"%";
+
+    textInterval = setInterval(()=>{
+        const texts = ["I LOVE YOU SANNU..", "YOUR LOVE AKKU.."];
+        const t = document.createElement("div");
+        t.className = "floating-text";
+        t.innerText = texts[Math.floor(Math.random()*texts.length)];
+
+        /* SAFE POSITION (SCREEN KE ANDAR) */
+        t.style.left = Math.random() * 70 + "%";  // 👈 body se bahar nahi jayega
+        t.style.top  = Math.random() * 80 + "%";  // 👈 safe vertical area
+
         document.body.appendChild(t);
-    },1800); // 👈 GAP BADHAYA (1.8 sec)
+    }, 2000); // 👈 har 2 second mein
 }
 
 function stopText(){
