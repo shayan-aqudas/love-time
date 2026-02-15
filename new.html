@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Card</title>
+
+<style>
+
+/* ---------- BODY ---------- */
+body{
+    margin:0;
+    height:100vh;
+    background:#0b0b12;
+    font-family:sans-serif;
+    overflow:hidden;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ---------- HEARTS ---------- */
+.heart{
+    position:fixed;
+    bottom:-40px;
+    color:#ff4d88;
+    font-size:20px;
+    animation:floatUp 6s linear infinite;
+    z-index:-5;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(-110vh);opacity:0;}
+}
+
+/* ---------- CARD ---------- */
+.card{
+    background:#151526;
+    padding:35px;
+    border-radius:18px;
+    box-shadow:0 0 35px #ff4d8860;
+    text-align:center;
+    z-index:5;
+}
+
+/* ---------- AUDIO BUTTON ---------- */
+#audioBtn{
+    margin-top:30px;
+    padding:16px 45px;
+    font-size:18px;
+    border-radius:40px;
+    background:linear-gradient(45deg,#ff4d88,#ff7aa8);
+    box-shadow:0 0 18px #ff4d88aa;
+    border:none;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#audioBtn:hover{
+    transform:scale(1.08);
+}
+
+/* ---------- FLOATING TEXT ---------- */
+.floatText{
+    position:fixed;
+    color:#ff7aa8;
+    opacity:0;
+    font-size:18px;
+    pointer-events:none;
+    animation:fadeMove 6s linear forwards;
+    z-index:-7;
+}
+
+@keyframes fadeMove{
+    0%{opacity:0;transform:translateY(20px);}
+    20%{opacity:1;}
+    80%{opacity:1;}
+    100%{opacity:0;transform:translateY(-40px);}
+}
+
+/* ---------- POPUP ---------- */
+#popup{
+    position:fixed;
+    top:30px;
+    left:50%;
+    transform:translateX(-50%) scale(0.8);
+    background:#ff4d88;
+    padding:18px 35px;
+    border-radius:14px;
+    box-shadow:0 0 25px #ff4d88cc;
+    opacity:0;
+    transition:.5s;
+    z-index:20;
+    font-size:20px;
+}
+
+#popup.show{
+    opacity:1;
+    transform:translateX(-50%) scale(1);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- POPUP -->
+<div id="popup">Ab to Maaf kardo baby 🥹</div>
+
+<!-- CARD -->
+<div class="card">
+    <h1>I’m Sorry ❤️</h1>
+    <p>You mean everything to me...</p>
+
+    <button id="audioBtn" onclick="toggleMusic()">
+        ▶ Play Our Love
+    </button>
+</div>
+
+<!-- AUDIO -->
+<audio id="music" loop>
+    <source src="your-music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* ---------- HEARTS AUTO START ---------- */
+startHearts();
+
+function startHearts(){
+    setInterval(()=>{
+        const heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="❤️";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(15+Math.random()*20)+"px";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),6000);
+    },500);
+}
+
+/* ---------- POPUP AFTER 15 SEC ---------- */
+setTimeout(showPopup,15000);
+
+function showPopup(){
+    const pop=document.getElementById("popup");
+    pop.classList.add("show");
+
+    setTimeout(()=>{
+        pop.classList.remove("show");
+    },5000);
+}
+
+/* ---------- MUSIC + RANDOM TEXT ---------- */
+const music=document.getElementById("music");
+
+let textInterval=null;
+let texts=[];
+
+const messages=[
+"I Love You ❤️",
+"Please Forgive Me 🥺",
+"You Are My World 💖",
+"Forever Yours 💞",
+"My Heart Is Yours ❤️"
+];
+
+function toggleMusic(){
+
+    if(music.paused){
+        music.play();
+        audioBtn.innerText="⏸ Pause Our Love";
+        startTexts();
+    }else{
+        music.pause();
+        audioBtn.innerText="▶ Play Our Love";
+        stopTexts();
+    }
+}
+
+function startTexts(){
+
+    textInterval=setInterval(()=>{
+
+        const t=document.createElement("div");
+        t.className="floatText";
+        t.innerText=messages[Math.floor(Math.random()*messages.length)];
+
+        t.style.left=Math.random()*90+"vw";
+        t.style.top=Math.random()*90+"vh";
+
+        document.body.appendChild(t);
+        texts.push(t);
+
+        if(texts.length>20){
+            const old=texts.shift();
+            old.remove();
+        }
+
+        setTimeout(()=>t.remove(),6000);
+
+    },800);
+}
+
+function stopTexts(){
+    clearInterval(textInterval);
+}
+
+</script>
+
+</body>
+</html>
