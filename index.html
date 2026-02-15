@@ -202,14 +202,21 @@ for(let i=0;i<80;i++){
 }
 
 /* ===== HEARTS ===== */
-setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤";
-    heart.style.left=Math.random()*100+"%";
+/* ===== AUTO FLOATING HEARTS (ALWAYS ON) ===== */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+
+    /* SAFE POSITION */
+    heart.style.left = Math.random() * 90 + "%";
+
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
-},1200);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}, 1200); // har 1.2 second mein ek heart
 
 /* ===== MUSIC & TEXT ===== */
 let playing=false;
