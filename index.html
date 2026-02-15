@@ -61,7 +61,46 @@ body{
         opacity:1;
     }
 }
+/* ===== HEART ===== */
+.heart{
+    position:absolute;
+    bottom:-30px;
+    animation: floatUp 6s linear forwards;
+    opacity:0.9;
+    pointer-events:none;
+}
 
+/* ===== SPARKLE ===== */
+.sparkle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background: rgba(255,182,193,0.9);
+    border-radius:50%;
+    animation: sparkle 1.2s ease-out forwards;
+}
+
+@keyframes sparkle{
+    from{
+        transform:scale(1);
+        opacity:1;
+    }
+    to{
+        transform:scale(0);
+        opacity:0;
+    }
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0);
+        opacity:0;
+    }
+    to{
+        transform:translateY(-110vh);
+        opacity:1;
+    }
+}
 /* ===== CARD ===== */
 .card{
     width:90%;
@@ -203,21 +242,57 @@ for(let i=0;i<80;i++){
 
 /* ===== HEARTS ===== */
 /* ===== AUTO FLOATING HEARTS (ALWAYS ON) ===== */
+/* ===== HEART SETTINGS ===== */
+const heartColors = [
+    "#ff4d6d",
+    "#ff6fae",
+    "#ff85c8",
+    "#ff2f92",
+    "#ff5fa2"
+];
+
+let musicPlaying = false;
+
+/* ===== AUTO HEARTS (ALWAYS FLOAT) ===== */
 setInterval(() => {
+    createHeart();
+}, 1200);
+
+function createHeart(){
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "❤";
 
-    /* SAFE POSITION */
+    /* POSITION */
     heart.style.left = Math.random() * 90 + "%";
+
+    /* SIZE CONTROL */
+    let size = musicPlaying
+        ? Math.random() * 10 + 18   // 18px – 28px (play)
+        : Math.random() * 6 + 16;   // 16px – 22px (pause)
+
+    heart.style.fontSize = size + "px";
+
+    /* COLOR */
+    heart.style.color = musicPlaying
+        ? heartColors[Math.floor(Math.random() * heartColors.length)]
+        : "rgba(255,105,180,0.5)";
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
-}, 1000); // har 1.2 second mein ek heart
+    /* SPARKLES (ONLY WHEN MUSIC PLAYING) */
+    if(musicPlaying){
+        for(let i=0;i<4;i++){
+            const sp = document.createElement("div");
+            sp.className = "sparkle";
+            sp.style.left = Math.random()*12 - 6 + "px";
+            sp.style.top  = Math.random()*12 - 6 + "px";
+            heart.appendChild(sp);
+        }
+    }
 
+    setTimeout(()=>heart.remove(),6000);
+}
 /* ===== MUSIC & TEXT ===== */
 let playing=false;
 let textInterval=null;
@@ -227,16 +302,19 @@ function toggleMusic(){
     const btn=document.querySelector("button");
 
     if(!playing){
+        musicPlaying = true; 
         music.play();
         btn.innerText="Pause Our Love ⏸";
         startText();
         playing=true;
     }else{
+        musicPlaying = false;  // 👈 ADD
         music.pause();
         btn.innerText="Play Our Love 🎶";
         stopText();
         playing=false;
     }
+    
 }
 
 /* ===== TEXT INTERVAL (TIME INCREASED HERE) ===== */
